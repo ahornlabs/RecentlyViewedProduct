@@ -19,6 +19,11 @@
     "shopware/core": "^6.6.0.0",
     "shopware/storefront": "^6.6.0.0"
   },
+  "config": {
+    "allow-plugins": {
+      "symfony/runtime": true
+    }
+  },
   "extra": {
     "shopware-plugin-class": "RecentlyViewedProduct\\RecentlyViewedProduct",
     "plugin-icon": "src/Resources/config/plugin.png",
