@@ -5,6 +5,7 @@
                 "label": "Schieberegler für kürzlich gesehene Produkte",
                 "config": {
                     "label": {
+                        "rotate": "Automatischer Bildwechsel",
                         "includePrice": "Produktpreis anzeigen",
                         "includeAction": "Box-Aktionen anzeigen",
                         "includeRating": "Bewertung anzeigen"

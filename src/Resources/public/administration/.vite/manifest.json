@@ -1,0 +1,11 @@
+{
+  "main.js": {
+    "file": "assets/recently-viewed-product-CL9sW1sk.js",
+    "name": "recently-viewed-product",
+    "src": "main.js",
+    "isEntry": true,
+    "css": [
+      "assets/recently-viewed-product-BG4NkeDt.css"
+    ]
+  }
+}

@@ -10,15 +10,8 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class ProductPageLoaderSubscriber implements EventSubscriberInterface
 {
-    /**
-     * @var RecentlyViewedProductService
-     */
-    private $recentlyViewedProductService;
-
-    public function __construct(
-        RecentlyViewedProductService $recentlyViewedProductService
-    ) {
-        $this->recentlyViewedProductService = $recentlyViewedProductService;
+    public function __construct(private readonly RecentlyViewedProductService $recentlyViewedProductService)
+    {
     }
 
     public static function getSubscribedEvents(): array
@@ -43,7 +36,7 @@ class ProductPageLoaderSubscriber implements EventSubscriberInterface
             $page->addExtension('recentlyViewedProductElement', $slot);
 
             $this->recentlyViewedProductService->addRecentProduct($productId, $context);
-        } catch (\Throwable $exception) {
+        } catch (\Throwable) {
             // nth
         }
     }
@@ -54,7 +47,7 @@ class ProductPageLoaderSubscriber implements EventSubscriberInterface
             $productId = $this->getMainProductId($event->getPage()->getProduct());
 
             $this->recentlyViewedProductService->addRecentProduct($productId, $event->getSalesChannelContext());
-        } catch (\Throwable $exception) {
+        } catch (\Throwable) {
             // nth
         }
     }
