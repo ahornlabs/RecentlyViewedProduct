@@ -18,22 +18,8 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class CmsPageLoaderSubscriber implements EventSubscriberInterface
 {
-    /**
-     * @var RecentlyViewedProductService
-     */
-    private $recentlyViewedProductService;
-
-    /**
-     * @var SystemConfigService
-     */
-    private $systemConfigService;
-
-    public function __construct(
-        RecentlyViewedProductService $recentlyViewedProductService,
-        SystemConfigService $systemConfigService
-    ) {
-        $this->recentlyViewedProductService = $recentlyViewedProductService;
-        $this->systemConfigService = $systemConfigService;
+    public function __construct(private readonly RecentlyViewedProductService $recentlyViewedProductService, private readonly SystemConfigService $systemConfigService)
+    {
     }
 
     public static function getSubscribedEvents(): array
@@ -87,9 +73,7 @@ class CmsPageLoaderSubscriber implements EventSubscriberInterface
             $pseudoSection = CmsSectionEntity::createFrom($cmsPageSection);
             $pseudoSection->setUniqueIdentifier(Uuid::randomHex());
 
-            $mainSectionBlocks = $lastSectionBlocks->filter(function (CmsBlockEntity $cmsBlock) {
-                return $cmsBlock->getSectionPosition() === 'main';
-            });
+            $mainSectionBlocks = $lastSectionBlocks->filter(fn(CmsBlockEntity $cmsBlock) => $cmsBlock->getSectionPosition() === 'main');
 
             $referenceBlock = $mainSectionBlocks->last();
 
@@ -114,7 +98,7 @@ class CmsPageLoaderSubscriber implements EventSubscriberInterface
             $pseudoSection->setBlocks(new CmsBlockCollection([$pseudoSliderBlock]));
             $pseudoSection->setType('default');
             $cmsPageSections->add($pseudoSection);
-        } catch (\Throwable $exception) {
+        } catch (\Throwable) {
             // nth
         }
     }
