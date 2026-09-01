@@ -1,0 +1,55 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/symfony/dependency-injection/7.4/Loader/schema/services.schema.json
+services:
+    RecentlyViewedProduct\DAL\FieldSerializer\RecentProductFieldSerializer:
+        arguments:
+            - '@validator'
+            - '@Shopware\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry'
+        tags:
+            - shopware.field_serializer
+
+    RecentlyViewedProduct\Controller\RecentProductController:
+        public: true
+        arguments:
+            - '@cms_slot.repository'
+            - '@RecentlyViewedProduct\Service\RecentlyViewedProductService'
+        calls:
+            - [setContainer, ['@service_container']]
+
+    RecentlyViewedProduct\DAL\RecentlyViewedProductDefinition:
+        tags:
+            - {name: shopware.entity.definition, entity: recently_viewed_product}
+
+    RecentlyViewedProduct\Service\RecentlyViewedProductService:
+        public: true
+        arguments:
+            - '@recently_viewed_product.repository'
+            - '@Shopware\Core\System\SystemConfig\SystemConfigService'
+            - '@sales_channel.product.repository'
+
+    RecentlyViewedProduct\Subscriber\Storefront\ProductPageLoaderSubscriber:
+        arguments:
+            - '@RecentlyViewedProduct\Service\RecentlyViewedProductService'
+        tags:
+            - kernel.event_subscriber
+
+    RecentlyViewedProduct\Subscriber\Storefront\CmsPageLoaderSubscriber:
+        arguments:
+            - '@RecentlyViewedProduct\Service\RecentlyViewedProductService'
+            - '@Shopware\Core\System\SystemConfig\SystemConfigService'
+        tags:
+            - kernel.event_subscriber
+
+    RecentlyViewedProduct\Core\Content\Product\Cms\RecentlyViewedProductCmsElementResolver:
+        tags:
+            - shopware.cms.data_resolver
+
+    RecentlyViewedProduct\Core\System\SalesChannel\Context\SalesChannelContextPersisterDecorated:
+        decorates: Shopware\Core\System\SalesChannel\Context\SalesChannelContextPersister
+        decoration_on_invalid: ignore
+        arguments:
+            - '@RecentlyViewedProduct\Core\System\SalesChannel\Context\SalesChannelContextPersisterDecorated.inner'
+            - '@Doctrine\DBAL\Connection'
+            - '@event_dispatcher'
+            - '@Shopware\Core\Checkout\Cart\CartPersister'
+            - '@Psr\Clock\ClockInterface'
+            - '%shopware.api.store.context_lifetime%'
