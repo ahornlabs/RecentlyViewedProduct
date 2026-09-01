@@ -14,7 +14,7 @@ class Migration1600098518CreateRecentlyViewedProductTable extends MigrationStep
 
     public function update(Connection $connection): void
     {
-        $connection->executeUpdate('
+        $connection->executeStatement('
             CREATE TABLE IF NOT EXISTS `recently_viewed_product` (
                 `id` BINARY(16) NOT NULL,
                 `token` VARCHAR(50) COLLATE utf8mb4_unicode_ci NOT NULL UNIQUE,
