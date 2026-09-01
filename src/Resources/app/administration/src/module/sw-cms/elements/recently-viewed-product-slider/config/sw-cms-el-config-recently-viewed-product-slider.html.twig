@@ -41,7 +41,7 @@
         <sw-switch-field
             bordered
             :label="$tc('sw-cms.elements.productSlider.config.label.navigation')"
-            v-model="element.config.navigation.value"
+            v-model:value="element.config.navigation.value"
         >
                     </sw-switch-field>
         {% endblock %}
@@ -50,7 +50,7 @@
         <sw-switch-field
             bordered
             :label="$tc('sw-cms.elements.recentlyViewedProductSlider.config.label.rotate')"
-            v-model="element.config.rotate.value"
+            v-model:value="element.config.rotate.value"
         >
                     </sw-switch-field>
         {% endblock %}
@@ -59,7 +59,7 @@
         <sw-switch-field
             bordered
             :label="$tc('sw-cms.elements.productSlider.config.label.border')"
-            v-model="element.config.border.value"
+            v-model:value="element.config.border.value"
         >
                     </sw-switch-field>
         {% endblock %}
@@ -77,7 +77,7 @@
         <sw-switch-field
             bordered
             :label="$tc('sw-cms.elements.recentlyViewedProductSlider.config.label.includePrice')"
-            v-model="element.config.includePrice.value"
+            v-model:value="element.config.includePrice.value"
         >
                     </sw-switch-field>
         {% endblock %}
@@ -86,7 +86,7 @@
         <sw-switch-field
             bordered
             :label="$tc('sw-cms.elements.recentlyViewedProductSlider.config.label.includeAction')"
-            v-model="element.config.includeAction.value"
+            v-model:value="element.config.includeAction.value"
         >
                     </sw-switch-field>
         {% endblock %}
@@ -95,7 +95,7 @@
         <sw-switch-field
             bordered
             :label="$tc('sw-cms.elements.recentlyViewedProductSlider.config.label.includeRating')"
-            v-model="element.config.includeRating.value"
+            v-model:value="element.config.includeRating.value"
         >
                 </sw-switch-field>
         {% endblock %}
