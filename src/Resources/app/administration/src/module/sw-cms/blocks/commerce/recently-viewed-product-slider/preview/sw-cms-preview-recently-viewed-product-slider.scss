@@ -2,7 +2,7 @@
     align-items: center;
     display: grid;
     grid-template-columns: 20px 1fr 20px;
-    grid-gap: 5px;
+    gap: 5px;
     padding: 15px;
 
     img {
@@ -14,6 +14,6 @@
     .sw-cms-preview-recently-viewed-product-slider__product-box {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        grid-gap: 0 15px;
+        gap: 0 15px;
     }
 }
