@@ -1,4 +1,5 @@
 import template from './sw-cms-el-recently-viewed-product-slider.html.twig';
+import './sw-cms-el-recently-viewed-product-slider.scss';
 
 const { Component, Mixin } = Shopware;
 

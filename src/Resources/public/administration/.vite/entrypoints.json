@@ -3,11 +3,11 @@
   "entryPoints": {
     "recently-viewed-product": {
       "css": [
-        "/bundles/recentlyviewedproduct/administration/assets/recently-viewed-product-BaIaiB9F.css"
+        "/bundles/recentlyviewedproduct/administration/assets/recently-viewed-product-BG4NkeDt.css"
       ],
       "dynamic": [],
       "js": [
-        "/bundles/recentlyviewedproduct/administration/assets/recently-viewed-product-BJ4lKK0D.js"
+        "/bundles/recentlyviewedproduct/administration/assets/recently-viewed-product-zpWeMVuf.js"
       ],
       "legacy": false,
       "preload": []
