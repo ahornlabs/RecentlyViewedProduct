@@ -31,6 +31,9 @@
 |-------------|------------------------------|
 | 1.0.1    	  | Shopware 6.3 >= 6.4.10.0	    |
 | 1.2.0    	 | Shopware 6.4.11.0	           |
+| 7.0.0       | Shopware 6.7                 |
+
+Starting with 7.0.0, the plugin's major version tracks the Shopware minor version it targets (7.x = Shopware 6.7, future 8.x = Shopware 6.8, and so on).
 
 ## License
     
