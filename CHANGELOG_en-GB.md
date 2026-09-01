@@ -1,3 +1,7 @@
+# 7.0.0 - SW 6.7 Compatible
+- Made compatible with Shopware 6.7 (Doctrine DBAL 4, `SalesChannelContextPersister`, removed core exception class, deprecated API calls, removed `sw-field`/`sw-select-field` option syntax in the Administration)
+- Starting with this version, the plugin version follows the Shopware minor version: 7.x = Shopware 6.7, future 8.x = Shopware 6.8
+
 # 1.2.0 - SW 6.4.11.0 Compatible
 - New version work on 6.4.11.0 onward, if you're using 6.4.10.0 backward, please use the 1.1.0 version
 
