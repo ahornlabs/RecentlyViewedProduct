@@ -3,7 +3,6 @@
 namespace RecentlyViewedProduct;
 
 use Doctrine\DBAL\Connection;
-use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
@@ -27,7 +26,7 @@ class RecentlyViewedProduct extends Plugin
         /** @var EntityRepository $cmsBlockRepo */
         $cmsBlockRepo = $this->container->get('cms_block.repository');
 
-        $context = Context::createDefaultContext();
+        $context = $uninstallContext->getContext();
 
         $criteria = new Criteria();
         $criteria->addFilter(new EqualsFilter('type', self::RECENTLY_VIEWED_PRODUCT_TYPE));
@@ -38,6 +37,6 @@ class RecentlyViewedProduct extends Plugin
 
         $connection = $this->container->get(Connection::class);
 
-        $connection->exec('DROP TABLE IF EXISTS recently_viewed_product;');
+        $connection->executeStatement('DROP TABLE IF EXISTS recently_viewed_product;');
     }
 }
