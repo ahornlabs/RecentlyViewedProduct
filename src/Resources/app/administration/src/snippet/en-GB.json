@@ -5,6 +5,7 @@
                 "label": "Recently viewed products slider",
                 "config": {
                     "label": {
+                        "rotate": "Auto-rotate",
                         "includePrice": "Show product price",
                         "includeAction": "Show box actions",
                         "includeRating": "Show rating"
