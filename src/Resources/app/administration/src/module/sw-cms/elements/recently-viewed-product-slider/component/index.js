@@ -39,7 +39,7 @@ Component.register('sw-cms-el-recently-viewed-product-slider', {
                         ],
                         cover: {
                             media: {
-                                url: '/administration/static/img/cms/preview_glasses_large.jpg',
+                                url: 'administration/administration/static/img/cms/preview_glasses_large.webp',
                                 alt: 'Lorem Ipsum dolor'
                             }
                         }
