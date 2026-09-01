@@ -23,16 +23,6 @@ use Shopware\Core\System\SystemConfig\SystemConfigService;
 class RecentlyViewedProductService
 {
     /**
-     * @var EntityRepository
-     */
-    private $rpvRepository;
-
-    /**
-     * @var SystemConfigService
-     */
-    private $systemConfigService;
-
-    /**
      * @var null|RecentProductCollection
      */
     private $recentProducts;
@@ -42,19 +32,8 @@ class RecentlyViewedProductService
      */
     private $productEntities;
 
-    /**
-     * @var SalesChannelRepository
-     */
-    private $salesChannelProductRepository;
-
-    public function __construct(
-        EntityRepository $rpvRepository,
-        SystemConfigService $systemConfigService,
-        SalesChannelRepository $salesChannelProductRepository
-    ) {
-        $this->rpvRepository = $rpvRepository;
-        $this->systemConfigService = $systemConfigService;
-        $this->salesChannelProductRepository = $salesChannelProductRepository;
+    public function __construct(private readonly EntityRepository $rpvRepository, private readonly SystemConfigService $systemConfigService, private readonly SalesChannelRepository $salesChannelProductRepository)
+    {
     }
 
     public function loadRecentProductCollection(SalesChannelContext $context, bool $forceInOrder = false): RecentProductCollection
@@ -68,7 +47,9 @@ class RecentlyViewedProductService
 
         $result = $this->rpvRepository->search($criteria, $context->getContext());
 
-        $this->recentProducts = $result->first() ? $result->first()->getRecentProduct() : new RecentProductCollection();
+        $entity = $result->getEntities()->first();
+
+        $this->recentProducts = $entity ? $entity->getRecentProduct() : new RecentProductCollection();
 
         $showInRandomOrder = $this->systemConfigService->get(RecentlyViewedProduct::PLUGIN_NAME . '.config.showInRandomOrder', $context->getSalesChannel()->getId()) ?? false;
 
@@ -144,7 +125,9 @@ class RecentlyViewedProductService
 
         $searchResult = $this->salesChannelProductRepository->search($criteria, $context);
 
-        $this->productEntities = $searchResult->getEntities();
+        $entities = $searchResult->getEntities();
+        \assert($entities instanceof ProductCollection);
+        $this->productEntities = $entities;
 
         $this->cleanNotAvailableRecentProducts($searchResult, $context);
 
@@ -174,12 +157,10 @@ class RecentlyViewedProductService
             );
         }
 
-        $pseudoSlot->setConfig(\array_map(function ($config) {
-            return [
-                'source' => 'static',
-                'value' => $config,
-            ];
-        }, $pluginConfig));
+        $pseudoSlot->setConfig(\array_map(fn($config) => [
+            'source' => 'static',
+            'value' => $config,
+        ], $pluginConfig));
 
         $pseudoSlot->setFieldConfig($fieldCollection);
         $pseudoSlot->setId(Uuid::randomHex());
@@ -211,7 +192,6 @@ class RecentlyViewedProductService
         $recentProductIds = $searchResult->getCriteria()->getIds();
 
         if (!empty($recentProductIds) && count($recentProductIds) !== $entities->count()) {
-            $recentProductIds = $searchResult->getCriteria()->getIds();
             $availableIds = [];
 
             foreach ($recentProductIds as $productId) {
