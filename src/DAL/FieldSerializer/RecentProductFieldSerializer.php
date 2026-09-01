@@ -4,7 +4,7 @@ namespace RecentlyViewedProduct\DAL\FieldSerializer;
 
 use RecentlyViewedProduct\DAL\Field\RecentProductField;
 use RecentlyViewedProduct\Struct\RecentProductCollection;
-use Shopware\Core\Framework\DataAbstractionLayer\Exception\InvalidSerializerFieldException;
+use Shopware\Core\Framework\DataAbstractionLayer\DataAbstractionLayerException;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Field;
 use Shopware\Core\Framework\DataAbstractionLayer\FieldSerializer\JsonFieldSerializer;
 use Shopware\Core\Framework\DataAbstractionLayer\Write\DataStack\KeyValuePair;
@@ -22,7 +22,7 @@ class RecentProductFieldSerializer extends JsonFieldSerializer
         WriteParameterBag $parameters
     ): \Generator {
         if (!$field instanceof RecentProductField) {
-            throw new InvalidSerializerFieldException(RecentProductField::class, $field);
+            throw DataAbstractionLayerException::invalidSerializerField(RecentProductField::class, $field);
         }
 
         yield $field->getStorageName() => Json::encode($data->getValue());
