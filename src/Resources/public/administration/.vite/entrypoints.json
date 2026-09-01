@@ -1,0 +1,25 @@
+{
+  "base": "/bundles/recentlyviewedproduct/administration/",
+  "entryPoints": {
+    "recently-viewed-product": {
+      "css": [
+        "/bundles/recentlyviewedproduct/administration/assets/recently-viewed-product-BaIaiB9F.css"
+      ],
+      "dynamic": [],
+      "js": [
+        "/bundles/recentlyviewedproduct/administration/assets/recently-viewed-product-CHbHIYRJ.js"
+      ],
+      "legacy": false,
+      "preload": []
+    }
+  },
+  "legacy": false,
+  "metadatas": {},
+  "version": [
+    "7.1.0",
+    7,
+    1,
+    0
+  ],
+  "viteServer": null
+}
