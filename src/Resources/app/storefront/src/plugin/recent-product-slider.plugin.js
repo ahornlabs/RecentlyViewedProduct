@@ -1,9 +1,7 @@
-import HttpClient from 'src/service/http-client.service';
 import ElementLoadingIndicatorUtil from 'src/utility/loading-indicator/element-loading-indicator.util';
 
 export default class RecentProductSliderPlugin extends window.PluginBaseClass {
     init() {
-        this._client = new HttpClient();
         this.fetch();
     }
 
@@ -19,22 +17,24 @@ export default class RecentProductSliderPlugin extends window.PluginBaseClass {
             url += '&excludeProductId=' + this.options.excludeProductId;
         }
 
-        this._client.get(url, (response) => {
-            ElementLoadingIndicatorUtil.remove(this.el);
+        fetch(url)
+            .then((response) => response.text())
+            .then((response) => {
+                ElementLoadingIndicatorUtil.remove(this.el);
 
-            if (!response || response.trim().length === 0) {
-                const hrBar = this.el.closest('.product-detail')?.querySelector('.recently-viewed-product-bar');
+                if (!response || response.trim().length === 0) {
+                    const hrBar = this.el.closest('.product-detail')?.querySelector('.recently-viewed-product-bar');
 
-                if (hrBar) {
-                    hrBar.remove();
+                    if (hrBar) {
+                        hrBar.remove();
+                    }
+
+                    this.el.remove();
+                    return;
                 }
 
-                this.el.remove();
-                return;
-            }
-
-            this.renderProductSlider(response);
-        });
+                this.renderProductSlider(response);
+            });
     }
 
     renderProductSlider(html) {
